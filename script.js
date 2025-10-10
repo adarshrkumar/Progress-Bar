@@ -3,52 +3,29 @@ let default_color = '#555555';
 let default_family = 'sans-serif';
 let default_font = 'lato';
 
-if (Boolean(location.href.split('p=')[1]) !== false) {
-  var progress = location.href.split('p=')[1];
-  if (Boolean(progress.includes('&'))) {
-    progress = Number(progress.split('&')[0]);
-  }
-}
-else {
-  var progress = default_progress;
-}
+const queryParams = new URLSearchParams(window.location.search);
 
-if (Boolean(location.href.split('c=')[1]) !== false) {
-  var color = location.href.split('c=')[1];
-  if (Boolean(color.includes('&'))) {
-    color = color.split('&')[0];
-  }
+let progress = queryParams.has('p') ? Number(queryParams.get('p')) : default_progress;
+let color = queryParams.has('c') ? queryParams.get('c') : default_color;
+let family = queryParams.has('s') ? queryParams.get('s') : default_family;
+if (family === 'ss') {
+    family = 'sans-serif';
+} else if (family === 's') {
+    family = 'serif';
 }
-else {
-  var color = default_color;
-}
-
-if (Boolean(location.href.split('s=')[1]) !== false) {
-  var family = location.href.split('s=')[1];
-  if (Boolean(family.includes('&'))) {
-    family = family.split('&')[0];
-  }
-  if (family ==='ss') {
-    family ='sans-serif';
-  }
-  else if (style ==='s') {
-    family ='serif';
-  }
-}
-else {
-  var family = default_family;
-}
-
-if (Boolean(location.href.split('f=')[1]) !== false) {
-  var font = location.href.split('f=')[1];
-  if (Boolean(font.includes('&'))) {
-    var font = font.split('&')[0];
-  }
-}
-else {
-  var font = default_font;
-}
+let font = queryParams.has('f') ? queryParams.get('f') : default_font;
 
 document.querySelector('.bar').setAttribute('style', `width: ${progress}px !important;`);
 document.querySelector('.progress').innerText = `${progress}%/100%`;
 document.body.setAttribute('style', `--text-color: ${color}; --font-family: ${family}; --font-name: ${font};`);
+
+// Dynamically add a link font import for the selected font to the head
+const fontLink = document.createElement('link');
+fontLink.rel = 'stylesheet';
+fontLink.type = 'text/css';
+// Google Fonts load (basic Lato fallback if not present)
+let fontFamilyName = font.replace(/\+/g, ' ');
+// Build Google Fonts URL
+let fontUrl = `https://fonts.googleapis.com/css?family=${encodeURIComponent(fontFamilyName)}:400,700&display=swap`;
+fontLink.href = fontUrl;
+document.head.appendChild(fontLink);
