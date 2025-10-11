@@ -6,11 +6,11 @@ const default_color = '#555555';
 const default_family = 'sans-serif';
 const default_font = 'lato';
 
-const qP = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : null;
-const progress = qP ? qP.get('p') : default_progress;
-const color = qP ? qP.get('c') : default_color;
-const family = qP ? qP.get('s') : default_family;
-const font = qP ? qP.get('f') : default_font;
+const qP = Astro.url.searchParams;
+const progress = qP.get('p') || default_progress;
+const color = qP.get('c') || default_color;
+const family = qP.get('s') || default_family;
+const font = qP.get('f') || default_font;
 
 const ff = encodeURIComponent((font || default_font).replace(/\+/g, ' '));
 
