@@ -1,0 +1,36 @@
+---
+import '../styles/style.scss';
+
+const default_progress = 50;
+const default_color = '#555555';
+const default_family = 'sans-serif';
+const default_font = 'lato';
+
+const qP = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : null;
+const progress = qP ? qP.get('p') : default_progress;
+const color = qP ? qP.get('c') : default_color;
+const family = qP ? qP.get('s') : default_family;
+const font = qP ? qP.get('f') : default_font;
+
+const ff = encodeURIComponent((font || default_font).replace(/\+/g, ' '));
+
+---
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <title>Progress Bar | Adarsh Kumar</title>
+        <link rel="stylesheet" href={`https://fonts.googleapis.com/css?family=${ff}:400,700&display=swap`}>
+    </head>
+    <body style={`--text-color: ${color}; --font-family: ${family}; --font-name: ${font};`}>
+        <div class="parent-parent">
+            <div class="parent">
+                <div class="bar" style={`width: ${progress}px !important;`}></div>
+            </div>
+            <div class="text">
+                <b>:&nbsp;</b><span class="progress">{progress}%/100%</span>
+            </div>
+        </div>
+    </body>
+</html>
