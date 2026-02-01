@@ -1,43 +1,51 @@
-# Astro Starter Kit: Minimal
+# Progress-Bar
 
-```sh
-npm create astro@latest -- --template minimal
+A simple service for generating customizable progress bar visualizations.
+
+## Endpoints
+
+### HTML Page
+`/?p=75&c=%23ff0000&f=Roboto`
+
+### SVG Image
+`/bar.svg?p=75&c=green`
+
+## Query Parameters
+
+| Parameter | Description | Default |
+|-----------|-------------|---------|
+| `p` | Progress percentage (0-100) | 50 |
+| `c` | Color (hex or name) | #555555 (HTML) / green (SVG) |
+| `f` | Font name | lato |
+| `s` | Font family | sans-serif |
+
+## Usage Examples
+
+### Embed in Markdown
+```markdown
+![Progress](https://your-domain.com/bar.svg?p=80&c=blue)
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
-
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+### HTML Embed
+```html
+<img src="/bar.svg?p=65&c=%2300ff00" alt="65% complete">
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## Tech Stack
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+- [Astro](https://astro.build/) with SSR
+- SCSS for styling
+- Dynamic SVG generation
 
-Any static assets, like images, can be placed in the `public/` directory.
+## Development
 
-## 🧞 Commands
+```bash
+npm install
+npm run dev
+```
 
-All commands are run from the root of the project, from a terminal:
+## Build
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+```bash
+npm run build
+```
